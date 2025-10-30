@@ -25,7 +25,9 @@ export async function isKeplrAvailable(): Promise<boolean> {
 
 export async function enableKeplr(chainId: string): Promise<void> {
   if (!(await isKeplrAvailable())) throw new Error('Keplr not available');
-  await window.keplr.enable(chainId);
+  const keplr = window.keplr;
+  if (!keplr) throw new Error('Keplr not available');
+  await keplr.enable(chainId);
 }
 
 export async function connectKeplr(): Promise<ConnectedWallet> {
